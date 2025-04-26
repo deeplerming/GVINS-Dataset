@@ -37,7 +37,11 @@ std::vector<std::vector<ObsPtr>> parse_gnss_meas(const std::string &bag_filepath
 
         for(const auto& m : view) {
             GnssMeasMsgConstPtr obs_msg = m.instantiate<GnssMeasMsg>();
-            if (obs_msg == NULL) continue;
+            if (obs_msg == NULL) 
+			{
+				ROS_WARN_STREAM("收到非 GnssMeasMsg 类型的消息，时间戳: " << m.getTime());
+				continue;
+			}
             std::vector<ObsPtr> obs = msg2meas(obs_msg);
             result.push_back(obs);
         }
@@ -72,12 +76,14 @@ int main(int argc, char **argv) {
     ros::NodeHandle nh("~");  // 使用私有命名空间
     
     // 获取参数
-    std::string input_bag_path, output_obs_path, output_nav_path;
+    std::string input_bag_path, output_obs_path, output_nav_path, output_gps_nav_path, output_bds_nav_path;
     bool obs_flag = true, nav_flag = true;
 
     nh.param<std::string>("input_bag_path", input_bag_path, "");
     nh.param<std::string>("output_obs_path", output_obs_path, "");
     nh.param<std::string>("output_nav_path", output_nav_path, "");
+	nh.param<std::string>("output_gps_nav_path", output_gps_nav_path, "");
+	nh.param<std::string>("output_bds_nav_path", output_bds_nav_path, "");
     nh.param<bool>("obs_flag", obs_flag, true);
     nh.param<bool>("nav_flag", nav_flag, true);
 
@@ -104,7 +110,9 @@ int main(int argc, char **argv) {
                 ROS_ERROR("Cannot write to OBS output directory: %s", output_obs_path.c_str());
                 return 1;
             }
-            auto all_gnss_meas = parse_gnss_meas(input_bag_path);
+			ROS_INFO_STREAM("begin to decode OBS data");
+			auto all_gnss_meas = parse_gnss_meas(input_bag_path);
+			ROS_INFO_STREAM("=== Done with OBS data decoded.. " << all_gnss_meas.size() << " size ===");
             if (!all_gnss_meas.empty()) {
                 obs2rinex(output_obs_path, all_gnss_meas);
                 ROS_INFO("Successfully wrote OBS data to: %s", output_obs_path.c_str());
@@ -118,9 +126,11 @@ int main(int argc, char **argv) {
                 ROS_ERROR("Cannot write to NAV output directory: %s", output_nav_path.c_str());
                 return 1;
             }
-            auto all_gnss_ephem = parse_gnss_ephem(input_bag_path);
+			ROS_INFO_STREAM("begin to decode NAV data");
+			auto all_gnss_ephem = parse_gnss_ephem(input_bag_path);
+			ROS_INFO_STREAM("=== Done with NAV data decoded" << all_gnss_ephem.size() << " size ===");
             if (!all_gnss_ephem.empty()) {
-                ephems2nav(output_nav_path, all_gnss_ephem);
+                ephems2nav(output_nav_path, output_gps_nav_path, output_bds_nav_path, all_gnss_ephem);
                 ROS_INFO("Successfully wrote NAV data to: %s", output_nav_path.c_str());
             } else {
                 ROS_WARN("No GNSS ephemeris found in the bag file");

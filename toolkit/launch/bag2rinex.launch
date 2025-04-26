@@ -1,10 +1,11 @@
 <launch>
-
     <node pkg="gvins_dataset_toolkit" type="bag2rinex" name="bag2rinex" output="screen">
         <!-- 设置节点私有参数 -->
-        <param name="input_bag_path" type="string" value="/home/wxp/bigbag.bag"/>
-        <param name="output_obs_path" type="string" value="/home/wxp/convert_ws/src/GVINS-Dataset/data/ephemeris_rinex/bigbag.obs"/>
-        <param name="output_nav_path" type="string" value="/home/wxp/convert_ws/src/GVINS-Dataset/data/ephemeris_rinex/bigbag.nav"/>
+        <param name="input_bag_path" type="string" value="/media/wxp/Elements SE/20250426/2025-04-26-21-58-18.bag"/>
+        <param name="output_obs_path" type="string" value="/home/wxp/data/20250426/rover/2.obs"/>
+        <param name="output_nav_path" type="string" value="/home/wxp/data/20250426/rover/2.nav"/>
+		<param name="output_gps_nav_path" type="string" value="/home/wxp/data/20250426/rover/2.25n"/>
+		<param name="output_bds_nav_path" type="string" value="/home/wxp/data/20250426/rover/2.25b"/>
         <param name="obs_flag" type="bool" value="true"/>
         <param name="nav_flag" type="bool" value="true"/>
     </node>
