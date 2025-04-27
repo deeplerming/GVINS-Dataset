@@ -1,0 +1,6 @@
+<launch>
+    <!-- 从 YAML 文件加载 topic_mapping 参数 -->
+	<rosparam command="load" file="$(find gvins_dataset_toolkit)/config/topic_rename.yaml" />
+    <!-- 启动 rosbag_topic_rename 节点 -->
+    <node name="rosbag_topic_rename" pkg="gvins_dataset_toolkit" type="bag_topic_rename" output="screen"/>
+</launch>

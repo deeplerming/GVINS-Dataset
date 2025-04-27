@@ -128,7 +128,7 @@ int main(int argc, char **argv) {
             }
 			ROS_INFO_STREAM("begin to decode NAV data");
 			auto all_gnss_ephem = parse_gnss_ephem(input_bag_path);
-			ROS_INFO_STREAM("=== Done with NAV data decoded" << all_gnss_ephem.size() << " size ===");
+			ROS_INFO_STREAM("=== Done with NAV data decoded. " << all_gnss_ephem.size() << " size ===");
             if (!all_gnss_ephem.empty()) {
                 ephems2nav(output_nav_path, output_gps_nav_path, output_bds_nav_path, all_gnss_ephem);
                 ROS_INFO("Successfully wrote NAV data to: %s", output_nav_path.c_str());
