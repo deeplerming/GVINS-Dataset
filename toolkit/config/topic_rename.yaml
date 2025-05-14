@@ -1,8 +1,9 @@
 topic_mapping:
   - { old: "/ublox_driver/range_meas", new: "/ublox_base/range_meas" }
-  - { old: "/ublox_driver/ephem", new: "/ublox_base/ephem" }
-  - { old: "/ublox_driver/iono_params", new: "/ublox_base/iono_params" }
-  - { old: "/ublox_driver/receiver_pvt", new: "/ublox_base/receiver_pvt" }
+  # - { old: "/ublox_driver/ephem", new: "/ublox_base/ephem" }
+  # - { old: "/ublox_driver/iono_params", new: "/ublox_base/iono_params" }
+  # - { old: "/ublox_driver/receiver_pvt", new: "/ublox_base/receiver_pvt" }
+  # - { old: "/ublox_driver/receiver_lla", new: "/ublox_base/receiver_lla"}
 
-input_bag: "/media/wxp/Elements SE/20250426/2025-04-26-21-58-18.bag"
-output_bag: "/media/wxp/Elements SE/20250426/2.bag"
+input_bag: "/home/wxp/data/f9_m8t_1128/base_m8t_2346.bag"
+output_bag: "/home/wxp/data/f9_m8t_1128/base_m8t_2346.bag"

@@ -1,0 +1,9 @@
+<launch>
+    <node pkg="gvins_dataset_toolkit" type="bag_fuse" name="fusebag" output="screen">
+        <!-- 设置节点私有参数 -->
+        <param name="input_bag_path_1" type="string" value="/home/wxp/data/f9_m8t_1128/rov_f9p_2346.bag"/>
+        <param name="input_bag_path_2" type="string" value="/home/wxp/data/f9_m8t_1128/base_m8t_2346_1.bag"/>
+        <param name="output_bag_path" type="string" value="/home/wxp/data/f9_m8t_1128/all.bag"/>
+    </node>
+    <!-- <include file="$(find another_package)/launch/another.launch" /> -->
+</launch>

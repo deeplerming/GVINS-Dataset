@@ -24,3 +24,6 @@ target_link_libraries(bag2rtk_solution ${catkin_LIBRARIES})
 
 add_executable(bag_topic_rename src/bag_topic_rename.cpp)
 target_link_libraries(bag_topic_rename ${catkin_LIBRARIES})
+
+add_executable(bag_fuse src/bag_fuse.cpp)
+target_link_libraries(bag_fuse ${catkin_LIBRARIES})
